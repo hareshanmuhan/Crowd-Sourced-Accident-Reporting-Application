@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incident Information</title>
+    <!-- Link to static CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}">
+    <style>
+        /* Center and bold the heading */
+        h1 {
+            text-align: center; /* Center the text */
+            font-weight: bold; /* Make the text bold */
+            font-size: 2.5em; /* Adjust font size */
+            color: #333; /* Dark gray color */
+            margin-bottom: 20px; /* Add some space below */
+        }
+
+        /* Style the Submit button in black */
+        button {
+            padding: 15px 30px;
+            background-color: rgb(246, 245, 245);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            font-family: Arial, sans-serif;
+            font-weight: normal;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: auto;
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #f4efef; /* Darker black on hover */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Map styling */
+        #map {
+            width: 1080px; /* Fixed width */
+            height: 480px; /* Fixed height */
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        /* Form styling */
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+            color: #555;
+            font-size: 1.2em;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+    </style>
+    <!-- Include Mapbox GL JS -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header" class="alt">
+        <div class="logo">
+            <a href="index.html">Crowd-Sourced Reporting</a>
+        </div>
+        <a href="#menu" class="toggle"><span>Menu</span></a>
+    </header>
+
+    <!-- Navigation Menu -->
+    <nav id="menu">
+        <ul class="links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="upload.html">Report Incident</a></li>
+            <li><a href="about.html">About Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- Banner Section -->
+    <section class="banner">
+        <article>
+            <!-- Use static image -->
+            <img src="{{ url_for('static', filename='assets/images/slide01.jpg') }}" alt="" width="1440" height="961">
+            <div class="inner">
+                <header>
+                    <!-- Optional banner text -->
+                </header>
+            </div>
+        </article>
+    </section>
+
+    <!-- Incident Information Section -->
+    <div class="container">
+        <h1>Incident Information</h1>
+        <!-- Mapbox Map -->
+        <div id="map"></div>
+        <form action="/submit_info" method="POST">
+            <!-- Hidden input to pass the disaster type (action) -->
+            <input type="hidden" id="action" name="action" value="{{ action }}" required>
+
+            <label for="injured">Are there any injured individuals?</label>
+            <input type="number" id="injured" name="injured" min="0" required>
+
+            <label for="trapped">Are there people trapped?</label>
+            <select id="trapped" name="trapped" required>
+                <option value="" disabled selected>Select an option</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <label for="trappedCount">If trapped, how many trapped?</label>
+            <input type="number" id="trappedCount" name="trappedCount" min="0" required>
+
+            <label for="landmark">Landmark near the accident:</label>
+            <input type="text" id="landmark" name="landmark" required>
+
+            <label for="emergencyServices">Are emergency services already on the scene? </label>
+            <select id="emergencyServices" name="emergencyServices" required>
+                <option value="" disabled selected>Select an option</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <label for="damageLevel">What level of damage is visible?</label>
+            <select id="damageLevel" name="damageLevel" required>
+                <option value="" disabled selected>Select an option</option>
+                <option value="minor">Minor</option>
+                <option value="severe">Severe</option>
+                <option value="complete">Complete Destruction</option>
+            </select>
+
+            <label for="imageTime">When was this image taken?</label>
+            <input type="time" id="imageTime" name="imageTime" required>
+
+            <label for="missingPersons">Are there any missing persons reported in this location? </label>
+            <select id="missingPersons" name="missingPersons" required>
+                <option value="" disabled selected>Select an option</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <label for="missingCount">If yes, how many missing persons have been reported?</label>
+            <input type="number" id="missingCount" name="missingCount" min="0" required>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <ul class="icons">
+                <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+                <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+                <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+                <li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+            </ul>
+        </div>
+  
+    </footer>
+
+    <!-- Link to static JavaScript files -->
+    <script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/jquery.scrollex.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/skel.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+    <script>
+        // Initialize Mapbox
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZXN0aGVyY2F0ZXYiLCJhIjoiY2wyN2w3M256MDBqYjN0bW1uOG16ZzVqdiJ9.apozKCwK2RIwWPweckfjSg'; // Replace with your Mapbox access token
+
+        // Initialize the map
+        const map = new mapboxgl.Map({
+            container: 'map', // Map container ID
+            style: 'mapbox://styles/mapbox/streets-v11', // Map style
+            center: [0, 0], // Default center (will be updated with user's location)
+            zoom: 1 // Default zoom level
+        });
+
+        // Fetch user's location using Geolocation API
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const { latitude, longitude } = position.coords;
+
+                // Update the map center to the user's location
+                map.setCenter([longitude, latitude]);
+                map.setZoom(15); // Zoom level to clearly show the location
+
+                // Add a marker at the user's location
+                new mapboxgl.Marker()
+                    .setLngLat([longitude, latitude])
+                    .addTo(map);
+            },
+            (error) => {
+                console.error('Error fetching location:', error);
+                alert('Unable to fetch your location. Please enable location services and try again.');
+            }
+        );
+    </script>
+</body>
+</html>

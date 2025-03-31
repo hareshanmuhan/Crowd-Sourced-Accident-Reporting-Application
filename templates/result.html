@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <title>Result</title>
+    <link rel="stylesheet" href="../static/assets/css/main.css">
+    <style>
+        /* Additional custom styles */
+        .result-section {
+            padding: 100px 0;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+        .result-section h1 {
+            font-size: 2.5em;
+            color: #333;
+        }
+        .result-section p {
+            font-size: 1.2em;
+            color: #555;
+        }
+        .result-section img {
+            width: 720px; /* Fixed width */
+            height: 480px; /* Fixed height */
+            object-fit: cover; /* Ensure the image covers the area without distortion */
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        .call-button {
+            padding: 15px 30px;
+            background-color: #ff4444; /* Red background */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            font-family: Arial, sans-serif; /* Normal font */
+            font-weight: normal; /* Not bold */
+            text-align: center; /* Center text horizontally */
+            display: inline-block; /* Ensure button respects text-align */
+            width: auto; /* Auto width based on content */
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(160, 22, 22, 0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        .call-button:hover {
+            background-color: #cc0000; /* Darker red on hover */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+
+
+        /* Adjust banner height */
+        .banner {
+            height: 25vh; /* Half of the viewport height */
+            overflow: hidden; /* Hide overflow content */
+        }
+        .banner img {
+            width: 100%;
+            height: auto;
+            object-fit: cover; /* Ensure the image covers the banner area */
+        }
+        .banner .inner {
+            position: absolute;
+            top: 50%; /* Center the content vertically */
+            left: 50%; /* Center the content horizontally */
+            transform: translate(-50%, -50%); /* Adjust for exact centering */
+            text-align: center;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="header" class="alt">
+        <div class="logo">
+            <a href="index.html">Crowd-Sourced Reporting </a>
+        </div>
+        <a href="#menu" class="toggle"><span>Menu</span></a>
+    </header>
+
+    <!-- Navigation Menu -->
+    <nav id="menu">
+        <ul class="links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="upload.html">Report Incident</a></li>
+            <li><a href="about.html">About Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- Banner Section (Half Height) -->
+    <section class="banner">
+        <article>
+            <img src="../static/assets/images/slide01.jpg" alt="" width="1440" height="961">
+            <div class="inner">
+                <header>
+                    <!-- <p>A platform for reporting accidents and disasters</p> -->
+                    <!-- <h2>Crowd-Sourced Reporting</h2> -->
+                </header>
+            </div>
+        </article>
+    </section>
+
+    <!-- Result Section -->
+    <section id="one" class="wrapper style2">
+        <div class="inner">
+            <div class="result-section">
+                <h1>Result</h1>
+                <img src="{{ url_for('uploaded_file', filename=filename) }}" alt="Uploaded Image">
+                <p><strong>Caption:</strong> {{ caption }}</p>
+                {% if action and action != "No disaster detected." %}
+                    <p><strong>Disaster Type:</strong> {{ action }}</p>
+                    <!-- Pass the action to the info_retriv route -->
+                    <button class="call-button" onclick="window.location.href='{{ url_for('info_retriv', action=action) }}'">Call the Authorities</button>
+                {% else %}
+                    <p>No disaster detected.</p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <ul class="icons">
+                <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+                <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+                <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+                <li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+            </ul>
+        </div>
+
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../static/assets/js/jquery.min.js"></script>
+    <script src="../static/assets/js/jquery.scrollex.min.js"></script>
+    <script src="../static/assets/js/skel.min.js"></script>
+    <script src="../static/assets/js/util.js"></script>
+    <script src="../static/assets/js/main.js"></script>
+    <script>
+        // Smooth scrolling for navigation links
+        $(document).ready(function() {
+            $('a[href^="#"]').on('click', function(event) {
+                event.preventDefault();
+                var target = $(this.getAttribute('href'));
+                if (target.length) {
+                    $('html, body').stop().animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                }
+            });
+        });
+
+        // Lightbox for gallery images
+        $(document).ready(function() {
+            $('.lightbox').magnificPopup({
+                type: 'image',
+                gallery: {
+                    enabled: true
+                }
+            });
+        });
+    </script>
+</body>
+</html>

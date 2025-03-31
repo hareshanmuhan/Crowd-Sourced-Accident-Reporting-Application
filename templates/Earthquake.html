@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <title>Earthquake Detected</title>
+    <link rel="stylesheet" href="../static/assets/css/main.css">
+    <style>
+        /* Additional custom styles */
+        .earthquake-section {
+            padding: 100px 0;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+        .earthquake-section h1 {
+            font-size: 2.5em;
+            color: #333;
+        }
+        .earthquake-section p {
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .earthquake-section button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .earthquake-section button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Adjust banner height */
+        .banner {
+            height: 25vh; /* Half of the viewport height */
+            overflow: hidden; /* Hide overflow content */
+        }
+        .banner img {
+            width: 100%;
+            height: auto;
+            object-fit: cover; /* Ensure the image covers the banner area */
+        }
+        .banner .inner {
+            position: absolute;
+            top: 50%; /* Center the content vertically */
+            left: 50%; /* Center the content horizontally */
+            transform: translate(-50%, -50%); /* Adjust for exact centering */
+            text-align: center;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="header" class="alt">
+        <div class="logo">
+            <a href="index.html">Crowd-Sourced Reporting</a>
+        </div>
+        <a href="#menu" class="toggle"><span>Menu</span></a>
+    </header>
+
+    <!-- Navigation Menu -->
+    <nav id="menu">
+        <ul class="links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="upload.html">Report Incident</a></li>
+            <li><a href="about.html">About Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- Banner Section (Half Height) -->
+    <section class="banner">
+        <article>
+            <img src="../static/assets/images/earthquake.jpg" alt="" width="1440" height="961">
+            <div class="inner">
+                <header>
+                    <!-- <p>A platform for reporting accidents and disasters</p> -->
+                    <!-- <h2>Crowd-Sourced Reporting</h2> -->
+                </header>
+            </div>
+        </article>
+    </section>
+
+    <!-- Earthquake Detected Section -->
+    <section id="one" class="wrapper style2">
+        <div class="inner">
+            <div class="earthquake-section">
+                <h1>Earthquake Detected</h1>
+                <p>Rescue teams are on the way. Please stay in a safe location and avoid damaged buildings.</p>
+                <button onclick="window.location.href='/'">Go Back to Home</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <ul class="icons">
+                <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+                <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+                <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+                <li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+            </ul>
+        </div>
+
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../static/assets/js/jquery.min.js"></script>
+    <script src="../static/assets/js/jquery.scrollex.min.js"></script>
+    <script src="../static/assets/js/skel.min.js"></script>
+    <script src="../static/assets/js/util.js"></script>
+    <script src="../static/assets/js/main.js"></script>
+    <script>
+        // Smooth scrolling for navigation links
+        $(document).ready(function() {
+            $('a[href^="#"]').on('click', function(event) {
+                event.preventDefault();
+                var target = $(this.getAttribute('href'));
+                if (target.length) {
+                    $('html, body').stop().animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                }
+            });
+        });
+
+        // Lightbox for gallery images
+        $(document).ready(function() {
+            $('.lightbox').magnificPopup({
+                type: 'image',
+                gallery: {
+                    enabled: true
+                }
+            });
+        });
+    </script>
+</body>
+</html>

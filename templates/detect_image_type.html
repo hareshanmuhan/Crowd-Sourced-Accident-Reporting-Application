@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <title>Image Verification</title>
+    <link rel="stylesheet" href="../static/assets/css/main.css">
+    <style>
+        /* Additional custom styles */
+        .upload-section {
+            padding: 100px 0;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+        .upload-section h1 {
+            font-size: 2.5em;
+            color: #333;
+        }
+        .upload-form {
+            margin-top: 20px;
+        }
+        .upload-form input[type="file"] {
+            margin-bottom: 10px;
+        }
+        .upload-form button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .upload-form button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Adjust banner height */
+        .banner {
+            height: 25vh; /* Half of the viewport height */
+            overflow: hidden; /* Hide overflow content */
+        }
+        .banner img {
+            width: 100%;
+            height: auto;
+            object-fit: cover; /* Ensure the image covers the banner area */
+        }
+        .banner .inner {
+            position: absolute;
+            top: 50%; /* Center the content vertically */
+            left: 50%; /* Center the content horizontally */
+            transform: translate(-50%, -50%); /* Adjust for exact centering */
+            text-align: center;
+            color: white;
+        }
+
+        /* Center the upload form */
+        .upload-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Image Verification Styles */
+        .verification-section {
+            padding: 100px 0;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+        .verification-section h1 {
+            font-size: 2.5em;
+            color: #333;
+        }
+        .verification-section p {
+            font-size: 1.2em;
+            color: #555;
+        }
+        .verification-section img {
+            width: 720px; /* Fixed width */
+            height: 480px; /* Fixed height */
+            object-fit: cover; /* Ensure the image covers the area without distortion */
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        .verification-section button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        .verification-section button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Go Back Button below the banner */
+        .go-back-button {
+            text-align: center;
+            margin-top: 20px; /* Space below the banner */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="header" class="alt">
+        <div class="logo">
+            <a href="index.html">Crowd-Sourced Reporting</a>
+        </div>
+        <a href="#menu" class="toggle"><span>Menu</span></a>
+    </header>
+
+    <!-- Navigation Menu -->
+    <nav id="menu">
+        <ul class="links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="upload.html">Report Incident</a></li>
+            <li><a href="about.html">About Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- Banner Section (Half Height) -->
+    <section class="banner">
+        <article>
+            <img src="../static/assets/images/slide01.jpg" alt="" width="1440" height="961">
+            <div class="inner">
+                <header>
+                    <!-- <p>A platform for reporting accidents and disasters</p> -->
+                    <!-- <h2>Crowd-Sourced Reporting</h2> -->
+                </header>
+            </div>
+        </article>
+    </section>
+
+    <!-- Go Back Button below the banner -->
+    <div class="go-back-button">
+        <button onclick="window.location.href='/'">Go Back to Home</button>
+    </div>
+
+    <!-- Verification Section -->
+    <section id="one" class="wrapper style2">
+        <div class="inner">
+            <div class="verification-section">
+                {% if result == "AI IMAGE" %}
+                    <h1>Image Verification</h1>
+                    <p>This image is AI-generated.</p>
+                    <img src="{{ url_for('uploaded_file', filename=filename) }}" alt="Uploaded Image">
+                {% else %}
+                    <script>
+                        // Automatically redirect to the result page for real images
+                        window.location.href = "{{ url_for('result', filename=filename) }}";
+                    </script>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <ul class="icons">
+                <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+                <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+                <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+                <li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+            </ul>
+        </div>
+
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../static/assets/js/jquery.min.js"></script>
+    <script src="../static/assets/js/jquery.scrollex.min.js"></script>
+    <script src="../static/assets/js/skel.min.js"></script>
+    <script src="../static/assets/js/util.js"></script>
+    <script src="../static/assets/js/main.js"></script>
+    <script>
+        // Smooth scrolling for navigation links
+        $(document).ready(function() {
+            $('a[href^="#"]').on('click', function(event) {
+                event.preventDefault();
+                var target = $(this.getAttribute('href'));
+                if (target.length) {
+                    $('html, body').stop().animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                }
+            });
+        });
+
+        // Lightbox for gallery images
+        $(document).ready(function() {
+            $('.lightbox').magnificPopup({
+                type: 'image',
+                gallery: {
+                    enabled: true
+                }
+            });
+        });
+    </script>
+</body>
+</html>
