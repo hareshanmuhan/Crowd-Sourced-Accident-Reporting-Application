@@ -1,0 +1,4 @@
+pip install pillow
+pip install transformers
+pip3 install pytorch torchvision torchaudio 
+pip install twilio
